@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adagio</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header id="topbar">
+        <div class="brand">
+          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+            <g stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round">
+              <line x1="4" y1="8" x2="4" y2="14"></line>
+              <line x1="8.5" y1="5" x2="8.5" y2="17"></line>
+              <line x1="13" y1="2.5" x2="13" y2="19.5"></line>
+              <line x1="17.5" y1="6.5" x2="17.5" y2="15.5"></line>
+            </g>
+          </svg>
+          <span>Adagio</span>
+        </div>
+        <nav id="tabs">
+          <button class="tab active" data-tab="record">Record</button>
+          <button class="tab" data-tab="youtube">YouTube</button>
+          <button class="tab" data-tab="library">Library</button>
+          <button class="tab" data-tab="split">Split</button>
+        </nav>
+        <div id="tools-area">
+          <button id="btn-install-tools" class="btn accent hidden">Install tools</button>
+          <span id="tools-progress" class="muted hidden"></span>
+        </div>
+      </header>
+
+      <main>
+        <section id="tab-record" class="tab-page active"></section>
+        <section id="tab-youtube" class="tab-page"></section>
+        <section id="tab-library" class="tab-page"></section>
+        <section id="tab-split" class="tab-page"></section>
+      </main>
+
+      <footer id="playerbar" class="hidden">
+        <button id="pl-toggle" class="btn icon" title="Play/Pause">▶</button>
+        <div id="pl-title" class="pl-title muted">—</div>
+        <input id="pl-seek" type="range" min="0" max="1000" value="0" />
+        <span id="pl-time" class="muted mono">0:00 / 0:00</span>
+        <select id="pl-speed" title="Playback speed">
+          <option value="0.5">0.5×</option>
+          <option value="0.75">0.75×</option>
+          <option value="1" selected>1×</option>
+          <option value="1.25">1.25×</option>
+          <option value="1.5">1.5×</option>
+          <option value="2">2×</option>
+        </select>
+        <label class="chk" title="Jump over silent passages during playback">
+          <input type="checkbox" id="pl-skipsilence" /> skip silence
+        </label>
+        <button id="pl-close" class="btn icon" title="Close player">✕</button>
+      </footer>
+
+      <div id="toasts"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+[package]
+name = "adagio"
+version = "0.1.0"
+description = "Lightweight offline-first desktop sound recorder"
+edition = "2021"
+
+[lib]
+name = "adagio_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["protocol-asset"] }
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+tauri-plugin-global-shortcut = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+cpal = "0.16"
+hound = "3.5"
+rusqlite = { version = "0.32", features = ["bundled"] }
+ureq = "2.10"
+zip = { version = "2", default-features = false, features = ["deflate"] }
+chrono = "0.4"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-latest
+            args: "--target universal-apple-darwin --bundles dmg"
+          - platform: windows-latest
+            args: "--bundles nsis"
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: npm install
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: v__VERSION__
+          releaseName: "Adagio v__VERSION__"
+          releaseBody: |
+            Desktop sound recorder — voice & system audio recording, YouTube → MP3, silence-based splitting.
+
+            **Downloads**
+            - Windows: `Adagio_x.y.z_x64-setup.exe` (NSIS installer)
+            - macOS: `Adagio_x.y.z_universal.dmg` (Intel + Apple Silicon)
+
+            macOS note: the app is unsigned — on first launch, right-click the app → Open, or run `xattr -cr /Applications/Adagio.app`.
+          releaseDraft: false
+          prerelease: false
+          args: ${{ matrix.args }}
