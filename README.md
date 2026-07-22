@@ -19,6 +19,12 @@ Grab the latest installer from the **[Releases page](../../releases/latest)**:
 macOS note: the app is not code-signed. On first launch, right-click
 `Adagio.app` → **Open** (or run `xattr -cr /Applications/Adagio.app`).
 
+> **Native macOS app:** there is also a ground-up **SwiftUI** rewrite for Mac in
+> [`macos-native/`](macos-native/). It uses AVFoundation + ScreenCaptureKit so the
+> core (record / save / play / split / export-to-M4A) needs **no external tools**,
+> captures system audio without BlackHole, and saves reliably to Application Support.
+> See [macos-native/README.md](macos-native/README.md) to build it.
+
 ## Features
 
 - **Recording** — Voice (mic), System audio ("what you hear"), or Combined

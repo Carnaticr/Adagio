@@ -5,3 +5,10 @@ src-tauri/gen/
 *.log
 .DS_Store
 .claude/
+
+# macOS native (Xcode)
+macos-native/Adagio.xcodeproj/
+macos-native/DerivedData/
+macos-native/build/
+*.xcuserstate
+xcuserdata/

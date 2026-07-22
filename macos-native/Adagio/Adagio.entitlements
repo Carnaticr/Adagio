@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  Non-sandboxed (Developer ID / direct download): the app writes recordings to
+	  its own Application Support folder and can locate & run external helper tools
+	  (ffmpeg, yt-dlp). A sandboxed build cannot exec arbitrary binaries, which is
+	  exactly what broke tool location in the Tauri build. If you ever ship via the
+	  Mac App Store, re-enable the sandbox and drop the YouTube/ffmpeg subprocess
+	  features (or bundle them as XPC services).
+	-->
+	<key>com.apple.security.app-sandbox</key>
+	<false/>
+
+	<!-- Required for microphone capture under the Hardened Runtime. -->
+	<key>com.apple.security.device.audio-input</key>
+	<true/>
+</dict>
+</plist>
